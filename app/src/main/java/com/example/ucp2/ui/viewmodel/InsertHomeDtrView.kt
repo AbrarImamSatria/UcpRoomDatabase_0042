@@ -23,3 +23,14 @@ data class FormErrorState(
                 && jamKerja == null
     }
 }
+
+//data class variabel yang menyimpan
+//data input form
+data class DokterEvent(
+    val id: String = "",
+    val nama: String = "",
+    val spesialis: String = "",
+    val klinik: String = "",
+    val noHp: String = "",
+    val jamKerja:String = ""
+)
