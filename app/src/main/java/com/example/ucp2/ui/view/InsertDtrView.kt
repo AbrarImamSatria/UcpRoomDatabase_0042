@@ -68,7 +68,7 @@ fun InsertDtrView(
     }
 
     Scaffold (
-        modifier = modifier,
+        modifier = Modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TopAppBar(
