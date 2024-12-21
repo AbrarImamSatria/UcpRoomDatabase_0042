@@ -4,26 +4,99 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucp2.ui.costumwidget.TopAppBar
+import com.example.ucp2.ui.navigation.AlamatNavigasi
 import com.example.ucp2.ui.viewmodel.DokterEvent
+import com.example.ucp2.ui.viewmodel.DokterViewModel
 import com.example.ucp2.ui.viewmodel.DtrUIState
 import com.example.ucp2.ui.viewmodel.FormErrorState
+import com.example.ucp2.ui.viewmodel.PenyediaViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+@Composable
+fun InsertDtrView(
+    onBack: () -> Unit,
+    onNavigate: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: DokterViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val uiState = viewModel.uiState // Ambil UI State dari ViewModel
+    val snackbarHostState = remember { SnackbarHostState() } //Snackbar State
+    val coroutineScope = rememberCoroutineScope()
+
+    //Observasi perubahan snackbarMessage
+    LaunchedEffect(uiState.snackBarMessage) {
+        uiState.snackBarMessage?.let { message ->
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar(message) //Tampilkan Snackbar
+                viewModel.resetSnackBarMessage()
+            }
+        }
+    }
+
+    Scaffold (
+        modifier = modifier,
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        topBar = {
+            TopAppBar(
+                onBack = onBack,
+                showBackButton = true,
+                judul = "Tambah Dokter"
+            )
+        }
+    ){ padding ->
+        Column (
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(16.dp)
+        ){
+            // Isi Body
+            InsertBodyDtr(
+                uiState = uiState,
+                onClick = {
+                    coroutineScope.launch {
+                        if (viewModel.validateFields()) {
+                            viewModel.saveData()
+                            delay(600)
+                            withContext(Dispatchers.Main) {
+                                onNavigate()
+                            }
+                        }
+                    }
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun InsertBodyDtr(
     modifier: Modifier = Modifier,
-    onValueChange: (DokterEvent) -> Unit,
     uiState: DtrUIState,
     onClick: () -> Unit
 ) {
@@ -34,7 +107,6 @@ fun InsertBodyDtr(
     ){
         FormDokter(
             dokterEvent = uiState.dokterEvent,
-            onValueChange = onValueChange,
             errorState = uiState.isEntryValid,
             modifier = Modifier.fillMaxWidth()
         )
