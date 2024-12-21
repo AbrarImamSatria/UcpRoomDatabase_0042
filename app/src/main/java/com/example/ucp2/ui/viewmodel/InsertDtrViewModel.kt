@@ -19,12 +19,12 @@ class DokterViewModel(
     fun validateFields(): Boolean {
         val event = uiState.dokterEvent
         val errorState = FormErrorState(
-            id = if (event.id.isNotEmpty()) null else "NIM tidak boleh kosong",
+            id = if (event.id.isNotEmpty()) null else "Id tidak boleh kosong",
             nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
-            spesialis = if (event.spesialis.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
-            klinik = if (event.klinik.isNotEmpty()) null else "Alamat tidak boleh kosong",
-            noHp = if (event.noHp.isNotEmpty()) null else "Kelas tidak boleh kosong",
-            jamKerja = if (event.jamKerja.isNotEmpty()) null else "Angkatan tidak boleh kosong"
+            spesialis = if (event.spesialis.isNotEmpty()) null else "spesialis tidak boleh kosong",
+            klinik = if (event.klinik.isNotEmpty()) null else "Klinik tidak boleh kosong",
+            noHp = if (event.noHp.isNotEmpty()) null else "No Hp tidak boleh kosong",
+            jamKerja = if (event.jamKerja.isNotEmpty()) null else "Jam Kerja tidak boleh kosong"
         )
         uiState = uiState.copy(isEntryValid = errorState)
         return errorState.isValid()
