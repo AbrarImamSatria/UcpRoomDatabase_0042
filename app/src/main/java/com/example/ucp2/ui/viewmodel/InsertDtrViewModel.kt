@@ -15,11 +15,17 @@ class DokterViewModel(
 
     var uiState by mutableStateOf(DtrUIState())
 
+    //Memperbarui  state berdasarkan input pengguna
+    fun updateState(dokterEvent: DokterEvent) {
+        uiState = uiState.copy(
+            dokterEvent = dokterEvent,
+        )
+    }
+
     //validasi data input pengguna
     fun validateFields(): Boolean {
         val event = uiState.dokterEvent
         val errorState = FormErrorState(
-            id = if (event.id.isNotEmpty()) null else "Id tidak boleh kosong",
             nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
             spesialis = if (event.spesialis.isNotEmpty()) null else "spesialis tidak boleh kosong",
             klinik = if (event.klinik.isNotEmpty()) null else "Klinik tidak boleh kosong",
@@ -68,7 +74,6 @@ data class DtrUIState(
 )
 
 data class FormErrorState(
-    val id: String? = null,
     val nama: String? = null,
     val spesialis: String? = null,
     val klinik: String? = null,
@@ -76,8 +81,7 @@ data class FormErrorState(
     val jamKerja:String? = null,
 ){
     fun isValid(): Boolean{
-        return id == null
-                && nama == null
+        return nama == null
                 && spesialis == null
                 && klinik == null
                 && noHp == null
@@ -88,7 +92,6 @@ data class FormErrorState(
 //data class variabel yang menyimpan
 //data input form
 data class DokterEvent(
-    val id: String = "",
     val nama: String = "",
     val spesialis: String = "",
     val klinik: String = "",
@@ -98,7 +101,6 @@ data class DokterEvent(
 
 //Menyimpan input ke form ke dalam entity
 fun DokterEvent.toDokterEntity(): Dokter = Dokter(
-    id = id,
     nama = nama,
     spesialis = spesialis,
     klinik = klinik,
