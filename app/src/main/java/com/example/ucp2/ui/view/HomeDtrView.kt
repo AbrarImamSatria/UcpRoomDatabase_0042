@@ -157,7 +157,6 @@ fun ListDokter(
             itemContent = {dtr ->
                 CardDtr(
                     dtr = dtr,
-                    onClick = {onClick(dtr.id)}
                 )
             }
         )
