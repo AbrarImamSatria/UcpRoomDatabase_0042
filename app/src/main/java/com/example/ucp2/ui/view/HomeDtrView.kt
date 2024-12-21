@@ -54,6 +54,7 @@ import kotlinx.coroutines.launch
 fun HomeDtrView(
     viewModel: HomeDtrViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onAddDtr: () -> Unit = { },
+    onLihatJadwal: () -> Unit = { },
     onDetailClick: (String) -> Unit = { },
     modifier: Modifier = Modifier
 ){
@@ -167,7 +168,7 @@ fun HomeDtrView(
                             Text("Tambah Dokter")
                         }
                         Button(
-                            onClick = { /* Lihat Jadwal action */ },
+                            onClick = onLihatJadwal,  // Update this line
                             modifier = Modifier.weight(1f),
                             colors = ButtonDefaults.buttonColors(containerColor = blueColor)
                         ) {
