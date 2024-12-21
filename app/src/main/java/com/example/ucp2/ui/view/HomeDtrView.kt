@@ -60,13 +60,14 @@ fun HomeDtrView(
     val homeDtrUiState by viewModel.homeDtrUiState.collectAsState()
 
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(colorResource(id = R.color.blue))
-                    .padding(16.dp),
+                    .padding(top = 15.dp)
+                    .padding(30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -74,7 +75,7 @@ fun HomeDtrView(
                     Image(
                         painter = painterResource(id = R.drawable.hospital),
                         contentDescription = "Logo Hospital",
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                     Spacer(modifier = Modifier.width(20.dp))
                     Text(
@@ -305,7 +306,7 @@ fun CardDtr(
                     Text(
                         text = dtr.nama,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp
+                        fontSize = 17.sp,
                     )
                 }
                 Row(
@@ -314,7 +315,6 @@ fun CardDtr(
                 ) {
                     Text(
                         text = dtr.spesialis,
-                        fontWeight = FontWeight.Bold,
                         fontSize = 15.sp,
                         color = getColorForSpecialist(dtr.spesialis)
                     )
@@ -331,7 +331,6 @@ fun CardDtr(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = dtr.klinik,
-                        fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                     )
                 }
@@ -347,7 +346,6 @@ fun CardDtr(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = dtr.jamKerja,
-                        fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                     )
                 }
