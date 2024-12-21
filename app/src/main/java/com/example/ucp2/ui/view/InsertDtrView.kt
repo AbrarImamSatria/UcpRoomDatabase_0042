@@ -37,6 +37,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+object DestinasiInsert: AlamatNavigasi {
+    override val route: String = "insert_mhs"
+}
+
 @Composable
 fun InsertDtrView(
     onBack: () -> Unit,
