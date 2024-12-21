@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -16,7 +17,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ucp2.ui.viewmodel.DokterEvent
+import com.example.ucp2.ui.viewmodel.DtrUIState
 import com.example.ucp2.ui.viewmodel.FormErrorState
+
+@Composable
+fun InsertBodyDtr(
+    modifier: Modifier = Modifier,
+    onValueChange: (DokterEvent) -> Unit,
+    uiState: DtrUIState,
+    onClick: () -> Unit
+) {
+    Column (
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        FormDokter(
+            dokterEvent = uiState.dokterEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("Simpan")
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
