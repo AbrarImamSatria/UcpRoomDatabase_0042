@@ -231,7 +231,7 @@ fun BodyHomeDtrView (
         }
 
         else -> {
-            //Menampilkan daftar mahasiswa
+            //Menampilkan daftar dokter
             ListDokter(
                 listDtr = homeDtrUiState.listDtr,
                 onClick = {
@@ -287,7 +287,7 @@ fun CardDtr(
         ) {
             Icon(
                 imageVector = Icons.Filled.AccountCircle,
-                contentDescription = "Ikon Mahasiswa",
+                contentDescription = "Ikon account",
                 tint = colorResource(id = R.color.blue),
                 modifier = Modifier
                     .size(110.dp)
@@ -315,7 +315,8 @@ fun CardDtr(
                     Text(
                         text = dtr.spesialis,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp
+                        fontSize = 15.sp,
+                        color = getColorForSpecialist(dtr.spesialis)
                     )
                 }
                 Row(
@@ -352,5 +353,16 @@ fun CardDtr(
                 }
             }
         }
+    }
+}
+
+fun getColorForSpecialist(specialist: String): Color {
+    return when (specialist) {
+        "Dokter Spesialis Kandungan" -> Color(0xFFFF0000)
+        "Dokter Spesialis Anak" -> Color(0xFFFF5722)
+        "Dokter Umum" -> Color(0xFF00FF00)
+        "Dokter Spesialis Penyakit dalam" -> Color(0xFF800080)
+        "Dokter Spesialis Neurologi" -> Color(0xFFFFFF00)
+        else -> Color.Black
     }
 }
