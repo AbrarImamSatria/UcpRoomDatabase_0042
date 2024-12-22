@@ -2,17 +2,49 @@
 
 package com.example.ucp2.ui.view
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.ucp2.ui.viewmodel.FormErrorStateJwl
 import com.example.ucp2.ui.viewmodel.JadwalEvent
+import com.example.ucp2.ui.viewmodel.JwlUIState
 import com.example.ucp2.ui.widget.DynamicSelectTextField
 
+@Composable
+fun InsertBodyJwl(
+    modifier: Modifier = Modifier,
+    onValueChange: (JadwalEvent) -> Unit,
+    uiState: JwlUIState,
+    dokterList: List<String>,
+    onClick: () -> Unit
+) {
+    Column (
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        FormJadwal(
+            jadwalEvent = uiState.jadwalEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            dokterList = dokterList,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("Simpan")
+        }
+    }
+}
 
 @Composable
 fun FormJadwal(
