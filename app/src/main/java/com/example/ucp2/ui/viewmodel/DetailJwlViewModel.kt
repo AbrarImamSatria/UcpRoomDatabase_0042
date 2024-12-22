@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp2.data.entity.Jadwal
 import com.example.ucp2.repository.RepositoryJwl
+import com.example.ucp2.ui.navigation.DestinasiDetail
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,12 +16,11 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class DetailjwlViewModel (
+class DetailjwlViewModel(
     savedStateHandle: SavedStateHandle,
     private val repositoryJwl: RepositoryJwl,
-
-    ) : ViewModel() {
-    private val _id: String = checkNotNull(savedStateHandle[DestinasiDetail.ID])
+) : ViewModel() {
+    private val _id: Long = checkNotNull(savedStateHandle.get<Long>(DestinasiDetail.ID))
 
     val detailUiState: StateFlow<DetailUiState> = repositoryJwl.getJwl(_id)
         .filterNotNull()
@@ -59,7 +59,6 @@ class DetailjwlViewModel (
         }
     }
 }
-
 data class DetailUiState (
     val detailUiEvent: JadwalEvent = JadwalEvent(),
     val isLoading: Boolean = false,

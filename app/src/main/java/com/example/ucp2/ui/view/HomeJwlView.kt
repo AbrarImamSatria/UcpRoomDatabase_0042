@@ -55,7 +55,7 @@ fun HomeJwlView(
     viewModel: HomeJwlViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onAddJwl: () -> Unit = { },
     onBack: () -> Unit = { },
-    onDetailClick: (String) -> Unit = { },
+    onDetailClick: (Long) -> Unit = { },
     modifier: Modifier = Modifier
 ){
     val homeJwlUiState by viewModel.homeJwlUiState.collectAsState()
@@ -190,7 +190,7 @@ fun HomeJwlView(
 @Composable
 fun BodyHomeJwlView (
     homeJwlUiState: HomeJwlUiState,
-    onClick: (String) -> Unit = { },
+    onClick: (Long) -> Unit = { },
     modifier: Modifier = Modifier
 ){
 
@@ -224,7 +224,7 @@ fun BodyHomeJwlView (
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Tidak ada data dokter.",
+                    text = "Tidak ada data jadwal.",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
@@ -236,11 +236,8 @@ fun BodyHomeJwlView (
             //Menampilkan daftar jadwal
             ListJadwal(
                 listJwl = homeJwlUiState.listJwl,
-                onClick = {
-                    onClick(it)
-                    println(
-                        it
-                    )
+                onClick = { id ->
+                    onClick(id)
                 },
                 modifier = modifier
             )
@@ -252,7 +249,7 @@ fun BodyHomeJwlView (
 fun ListJadwal(
     listJwl: List<Jadwal>,
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit = { }
+    onClick: (Long) -> Unit = { }
 ){
     LazyColumn(
         modifier = modifier
@@ -262,6 +259,7 @@ fun ListJadwal(
             itemContent = {jwl ->
                 CardJwl(
                     jwl = jwl,
+                    onClick = { onClick(jwl.id) }
                 )
             }
         )
