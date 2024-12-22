@@ -21,3 +21,13 @@ data class FormErrorState(
                 && status == null
     }
 }
+
+//data class variabel yang menyimpan
+//data input form
+data class JadwalEvent(
+    val namaDokter: String = "",
+    val namaPasien: String = "",
+    val noHp: String = "",
+    val tanggalKonsultasi: String = "",
+    val status: String = "",
+)
