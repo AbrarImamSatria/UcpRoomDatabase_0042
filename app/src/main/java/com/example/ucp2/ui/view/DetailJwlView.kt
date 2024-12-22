@@ -58,7 +58,7 @@ fun DetailJwlView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    onEditClick(viewModel.detailUiState.value.detailUiEvent.id.toLong()) },
+                    onEditClick(viewModel.detailUiState.value.detailUiEvent.id) },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(16.dp)
             ) {

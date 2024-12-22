@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.example.ucp2.ui.view
 
 import androidx.compose.foundation.layout.Arrangement
@@ -175,9 +173,9 @@ fun FormJadwal(
             onValueChange = {
                 onValueChange(jadwalEvent.copy(noHp = it))
             },
-            label = { Text("Nomor pasien") },
+            label = { Text("Nomor Hp") },
             isError = errorState.noHp != null,
-            placeholder = { Text("Masukkan nomor pasien") },
+            placeholder = { Text("Masukkan nomor hp") },
         )
         Text(
             text = errorState.noHp ?: "",
