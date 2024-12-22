@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Card
@@ -25,6 +27,25 @@ import androidx.compose.ui.unit.sp
 import com.example.ucp2.R
 import com.example.ucp2.data.entity.Jadwal
 
+@Composable
+fun ListJadwal(
+    listJwl: List<Jadwal>,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit = { }
+){
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(
+            items = listJwl,
+            itemContent = {jwl ->
+                CardJwl(
+                    jwl = jwl,
+                )
+            }
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
