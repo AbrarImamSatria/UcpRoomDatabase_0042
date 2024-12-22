@@ -17,21 +17,21 @@ class HomeJwlViewModel (
     private val repositoryJwl: RepositoryJwl
 ) : ViewModel() {
 
-    val homeUIState: StateFlow<HomeUiState> = repositoryJwl.getAllJwl()
+    val homeJwlUiState: StateFlow<HomeJwlUiState> = repositoryJwl.getAllJwl()
         .filterNotNull()
         .map {
-            HomeUiState (
+            HomeJwlUiState (
                 listJwl = it.toList(),
                 isLoading = false,
             )
         }
         .onStart {
-            emit(HomeUiState(isLoading = true))
+            emit(HomeJwlUiState(isLoading = true))
             delay(900)
         }
         .catch {
             emit(
-                HomeUiState(
+                HomeJwlUiState(
                     isLoading = false,
                     isError = true,
                     errorMessage = it.message ?: "Terjadi Kesalahan"
@@ -41,13 +41,13 @@ class HomeJwlViewModel (
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = HomeUiState (
+            initialValue = HomeJwlUiState (
                 isLoading = true,
             )
         )
 }
 
-data class HomeUiState (
+data class HomeJwlUiState (
     val listJwl: List<Jadwal> = listOf(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
