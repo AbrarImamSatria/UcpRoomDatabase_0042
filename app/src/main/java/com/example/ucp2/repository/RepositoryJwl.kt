@@ -8,9 +8,9 @@ interface RepositoryJwl {
 
     fun getAllJwl(): Flow<List<Jadwal>>
 
-    fun getJwl(id: String): Flow<Jadwal>
+    fun getJwl(id: Long): Flow<Jadwal>
 
-    suspend fun deleteJwl(mahasiswa: Jadwal)
+    suspend fun deleteJwl(jadwal: Jadwal)
 
-    suspend fun updateJwl(mahasiswa: Jadwal)
+    suspend fun updateJwl(jadwal: Jadwal)
 }

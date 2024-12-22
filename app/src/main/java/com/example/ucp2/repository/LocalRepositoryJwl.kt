@@ -15,7 +15,7 @@ class LocalRepositoryJwl(
         return jadwalDao.getAllJadwal()
     }
 
-    override fun getJwl(id: String): Flow<Jadwal> {
+    override fun getJwl(id: Long): Flow<Jadwal> {
         return jadwalDao.getJadwal(id)
     }
 
