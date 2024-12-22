@@ -46,4 +46,55 @@ class UpdateJwlViewModel (
                 .toUIStateJwl()
         }
     }
+
+    fun updateState(jadwalEvent: JadwalEvent) {
+        updateJwlUIState = updateJwlUIState.copy(
+            jadwalEvent = jadwalEvent
+        )
+    }
+
+    fun validateFieldsJwl(): Boolean {
+        val event = updateJwlUIState.jadwalEvent
+        val errorState = FormErrorStateJwl(
+            namaDokter = if (event.namaDokter.isNotEmpty()) null else "Nama Dokter tidak boleh kosong",
+            namaPasien = if (event.namaPasien.isNotEmpty()) null else "Nama Pasien tidak boleh kosong",
+            noHp = if (event.noHp.isNotEmpty()) null else "No HP tidak boleh kosong",
+            tanggalKonsultasi = if (event.tanggalKonsultasi.isNotEmpty()) null else "Tanggal Konsultasi tidak boleh kosong",
+            status = if (event.status.isNotEmpty()) null else "Status tidak boleh kosong"
+        )
+
+        // Set error state ke UI state
+        updateJwlUIState = updateJwlUIState.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
+
+    fun updateData() {
+        val currentEvent = updateJwlUIState.jadwalEvent
+
+        if (validateFieldsJwl()) {
+            viewModelScope.launch {
+                try {
+                    repositoryJwl.updateJwl(currentEvent.toJadwalEntity())
+                    updateJwlUIState = updateJwlUIState.copy(
+                        snackBarMessage = "Data berhasil di update",
+                        jadwalEvent = JadwalEvent(),
+                        isEntryValid = FormErrorStateJwl()
+                    )
+                    println("snackBarMessage diatur: ${updateJwlUIState.snackBarMessage}")
+                } catch (e: Exception) {
+                    updateJwlUIState = updateJwlUIState.copy(
+                        snackBarMessage = "Data gagal diupdate"
+                    )
+                }
+            }
+        } else {
+            updateJwlUIState = updateJwlUIState.copy(
+                snackBarMessage = "Data gagal diupdate"
+            )
+        }
+    }
+
+    fun resetSnackBarMessage() {
+        updateJwlUIState = updateJwlUIState.copy(snackBarMessage = null)
+    }
 }
