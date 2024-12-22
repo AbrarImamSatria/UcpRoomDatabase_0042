@@ -5,3 +5,19 @@ data class JwlUIState(
     val isEntryValid: FormErrorState = FormErrorState(),
     val snackBarMessage: String? = null,
 )
+
+data class FormErrorState(
+    val namaDokter: String? = null,
+    val namaPasien: String? = null,
+    val noHp: String? = null,
+    val tanggalKonsultasi: String? = null,
+    val status: String? = null,
+) {
+    fun isValid(): Boolean{
+        return namaDokter == null
+                && namaPasien == null
+                && noHp == null
+                && tanggalKonsultasi == null
+                && status == null
+    }
+}
