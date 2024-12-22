@@ -98,3 +98,7 @@ class UpdateJwlViewModel (
         updateJwlUIState = updateJwlUIState.copy(snackBarMessage = null)
     }
 }
+
+fun Jadwal.toUIStateJwl(): JwlUIState = JwlUIState(
+    jadwalEvent = this.toDetailUiEvent()
+)
