@@ -315,7 +315,8 @@ fun CardJwl(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = jwl.namaDokter,
+                        text = jwl.status,
+                        color = Color.Blue,
                         fontSize = 15.sp,
                     )
                 }
@@ -324,11 +325,11 @@ fun CardJwl(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.hospital2),
-                        contentDescription = "Logo Hospital",
+                        painter = painterResource(id = R.drawable.schedule),
+                        contentDescription = "Logo Jadwal",
                         modifier = Modifier.size(20.dp),
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = jwl.tanggalKonsultasi,
                         fontSize = 15.sp
@@ -339,11 +340,11 @@ fun CardJwl(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.chronometer),
-                        contentDescription = "Logo jam",
+                        painter = painterResource(id = R.drawable.telephone),
+                        contentDescription = "Logo telpon",
                         modifier = Modifier.size(20.dp),
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = jwl.noHp,
                         fontSize = 15.sp

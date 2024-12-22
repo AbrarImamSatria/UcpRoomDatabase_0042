@@ -224,7 +224,7 @@ fun BodyHomeDtrView (
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Tidak ada data dokter.",
+                    text = "Tidak ada data Jadwal.",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(16.dp)
@@ -329,7 +329,7 @@ fun CardDtr(
                         contentDescription = "Logo Hospital",
                         modifier = Modifier.size(20.dp),
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = dtr.klinik,
                         fontSize = 15.sp
@@ -344,7 +344,7 @@ fun CardDtr(
                         contentDescription = "Logo jam",
                         modifier = Modifier.size(20.dp),
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = dtr.jamKerja,
                         fontSize = 15.sp
