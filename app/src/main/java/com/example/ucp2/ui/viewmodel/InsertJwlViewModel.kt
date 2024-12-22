@@ -9,9 +9,6 @@ import com.example.ucp2.data.entity.Dokter
 import com.example.ucp2.data.entity.Jadwal
 import com.example.ucp2.repository.RepositoryDtr
 import com.example.ucp2.repository.RepositoryJwl
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class JadwalViewModel(
@@ -93,6 +90,7 @@ data class JwlUIState(
 //data class variabel yang menyimpan
 //data input form
 data class JadwalEvent(
+    val id: Long = 0,
     val namaDokter: String = "",
     val namaPasien: String = "",
     val noHp: String = "",
@@ -118,6 +116,7 @@ data class FormErrorStateJwl(
 
 //Menyimpan input ke form ke dalam entity
 fun JadwalEvent.toJadwalEntity(): Jadwal = Jadwal(
+    id = id,
     namaDokter = namaDokter,
     namaPasien = namaPasien,
     noHp = noHp,
