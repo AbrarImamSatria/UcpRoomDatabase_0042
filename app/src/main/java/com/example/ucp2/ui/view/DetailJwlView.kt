@@ -6,15 +6,21 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -25,9 +31,56 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp2.data.entity.Jadwal
+import com.example.ucp2.ui.costumwidget.TopAppBar
 import com.example.ucp2.ui.viewmodel.DetailUiState
+import com.example.ucp2.ui.viewmodel.DetailjwlViewModel
+import com.example.ucp2.ui.viewmodel.PenyediaViewModel
 import com.example.ucp2.ui.viewmodel.toJadwalEntity
+
+@Composable
+fun DetailJwlView(
+    modifier: Modifier = Modifier,
+    viewModel: DetailjwlViewModel = viewModel(factory = PenyediaViewModel.Factory),
+    onBack: () -> Unit = { },
+    onEditClick: (Long) -> Unit = { },
+    onDeleteClick: () -> Unit = { }
+) {
+    Scaffold (
+        topBar = {
+            TopAppBar(
+                judul = "Detail Jadwal",
+                showBackButton = true,
+                onBack = onBack,
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    onEditClick(viewModel.detailUiState.value.detailUiEvent.id.toLong()) },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Edit Jadwal",
+                )
+            }
+        }
+    ){ innerPadding ->
+        val detailUiState by viewModel.detailUiState.collectAsState()
+
+        BodyDetailJwl(
+            modifier = Modifier.padding(innerPadding),
+            detailUiState = detailUiState,
+            onDeleteClick = {
+                viewModel.deleteJwl()
+                onDeleteClick()
+            }
+        )
+    }
+}
 
 @Composable
 fun BodyDetailJwl(
@@ -107,15 +160,13 @@ fun ItemDetailJwl(
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            ComponentDetailJwl(judul = "Id : ", isinya = jadwal.id.toString())
+            ComponentDetailJwl(judul = "Nama Pasien", isinya = jadwal.namaPasien)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailJwl(judul = "Nama Pasien : ", isinya = jadwal.namaPasien)
+            ComponentDetailJwl(judul = "Nama Dokter", isinya = jadwal.namaDokter)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailJwl(judul = "Nama Dokter : ", isinya = jadwal.namaDokter)
+            ComponentDetailJwl(judul = "Nomor Hp", isinya = jadwal.noHp)
             Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailJwl(judul = "Nomor Hp : ", isinya = jadwal.noHp)
-            Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailJwl(judul = "Tanggal : ", isinya = jadwal.tanggalKonsultasi)
+            ComponentDetailJwl(judul = "Tanggal", isinya = jadwal.tanggalKonsultasi)
             Spacer(modifier = Modifier.padding(4.dp))
             ComponentDetailJwl(judul = "Status Penanganan", isinya = jadwal.status)
         }
