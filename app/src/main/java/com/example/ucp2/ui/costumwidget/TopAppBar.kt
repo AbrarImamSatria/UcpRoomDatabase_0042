@@ -14,22 +14,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ucp2.R
 
 @Composable
 fun TopAppBar(
     onBack: () -> Unit,
     showBackButton: Boolean = true,
     judul: String,
-    backgroundColor: Color = MaterialTheme.colorScheme.primary // Default warna latar belakang
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp) // Tinggi standar AppBar
-            .background(backgroundColor)
+            .background(colorResource(id = R.color.blue))
             .padding(top = 20.dp)
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
