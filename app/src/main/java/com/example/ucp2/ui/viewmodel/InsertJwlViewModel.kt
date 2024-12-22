@@ -1,5 +1,7 @@
 package com.example.ucp2.ui.viewmodel
 
+import com.example.ucp2.data.entity.Jadwal
+
 data class JwlUIState(
     val jadwalEvent: JadwalEvent = JadwalEvent(),
     val isEntryValid: FormErrorState = FormErrorState(),
@@ -30,4 +32,13 @@ data class JadwalEvent(
     val noHp: String = "",
     val tanggalKonsultasi: String = "",
     val status: String = "",
+)
+
+//Menyimpan input ke form ke dalam entity
+fun JadwalEvent.toJadwalEntity(): Jadwal = Jadwal(
+    namaDokter = namaDokter,
+    namaPasien = namaPasien,
+    noHp = noHp,
+    tanggalKonsultasi = tanggalKonsultasi,
+    status = status
 )
